@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt54cft0ag8vl"]
+
+[ext_resource type="Script" uid="uid://b8cr0i7qq8kb0" path="res://code/kill_area.gd" id="1_0wui2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jxd0y"]
+
+[node name="kill area" type="Area2D"]
+collision_mask = 16
+script = ExtResource("1_0wui2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_jxd0y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

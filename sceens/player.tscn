@@ -1,0 +1,131 @@
+[gd_scene load_steps=16 format=3 uid="uid://becvno8xkjmvy"]
+
+[ext_resource type="Script" uid="uid://tqk17bwf3u6d" path="res://code/player_movment.gd" id="1_786ye"]
+[ext_resource type="Texture2D" uid="uid://df0c7jxpph5uw" path="res://resorses/new_canvas_texture.tres" id="2_786ye"]
+[ext_resource type="Texture2D" uid="uid://br5b3rtrbcpk7" path="res://art/coin bar.png" id="3_f1oci"]
+[ext_resource type="AudioStream" uid="uid://chchkbitwt4ck" path="res://sounds/walking/being used/FEETHmn-GRAVEL_AUDIOELK-Fs Gravel Shoes Outdoors 57_AUDIOELK_AUDIOELK.wav" id="4_dowbf"]
+[ext_resource type="AudioStream" uid="uid://duwdw37tck4g3" path="res://sounds/walking/being used/FEETHmn-GRAVEL_AUDIOELK-Fs Gravel Shoes Outdoors 14_AUDIOELK_AUDIOELK.wav" id="5_kt66f"]
+[ext_resource type="AudioStream" uid="uid://c4tghab807os4" path="res://sounds/walking/being used/FEETHmn-GRAVEL_AUDIOELK-Fs Gravel Shoes Outdoors 16_AUDIOELK_AUDIOELK.wav" id="6_ngyfk"]
+[ext_resource type="AudioStream" uid="uid://eh3rfc1jqhdt" path="res://sounds/walking/being used/FEETHmn-GRAVEL_AUDIOELK-Fs Gravel Shoes Outdoors 10_AUDIOELK_AUDIOELK.wav" id="7_bt1ao"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_786ye"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dowbf"]
+atlas = ExtResource("3_f1oci")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt66f"]
+atlas = ExtResource("3_f1oci")
+region = Rect2(0, 16, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6a8t"]
+atlas = ExtResource("3_f1oci")
+region = Rect2(0, 32, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngyfk"]
+atlas = ExtResource("3_f1oci")
+region = Rect2(0, 48, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt1ao"]
+atlas = ExtResource("3_f1oci")
+region = Rect2(0, 64, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71q8w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dowbf")
+}],
+"loop": true,
+"name": &"0 out of 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt66f")
+}],
+"loop": true,
+"name": &"1 out of 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6a8t")
+}],
+"loop": true,
+"name": &"2 out of 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngyfk")
+}],
+"loop": true,
+"name": &"3 out of 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt1ao")
+}],
+"loop": true,
+"name": &"4 out of 4",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7idx"]
+radius = 12.0
+height = 38.0
+
+[node name="player" type="CharacterBody2D"]
+collision_layer = 18
+collision_mask = 3
+script = ExtResource("1_786ye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_786ye")
+region_enabled = true
+region_rect = Rect2(6.81293, 48.1424, 20.9724, 32.037)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_786ye")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 25.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(-1, -115)
+sprite_frames = SubResource("SpriteFrames_71q8w")
+animation = &"0 out of 4"
+autoplay = "0 out of 4"
+
+[node name="coin detect" type="Area2D" parent="."]
+collision_layer = 192
+collision_mask = 192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="coin detect"]
+shape = SubResource("CapsuleShape2D_h7idx")
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="walking 1" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("4_dowbf")
+
+[node name="walking 2" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("5_kt66f")
+
+[node name="walking 3" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("6_ngyfk")
+
+[node name="walking 4" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("7_bt1ao")
+
+[node name="waling soun effect timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_entered" from="coin detect" to="." method="_on_coin_detect_area_entered"]
+[connection signal="timeout" from="waling soun effect timer" to="." method="_on_waling_soun_effect_timer_timeout"]

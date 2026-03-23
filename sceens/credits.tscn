@@ -1,0 +1,168 @@
+[gd_scene load_steps=8 format=3 uid="uid://splrn1qi1t1"]
+
+[ext_resource type="Script" uid="uid://cenf7wv2l4ahv" path="res://code/credits.gd" id="1_lwxu6"]
+[ext_resource type="Shader" uid="uid://cyscxawnqaqnk" path="res://shaders/bacround.gdshader" id="2_xeds6"]
+[ext_resource type="Texture2D" uid="uid://bimxulwjkppli" path="res://art/bacround.png" id="3_x7g6q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r2c6a"]
+shader = ExtResource("2_xeds6")
+
+[sub_resource type="Animation" id="Animation_e1tq4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("labes:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("labes:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(416, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_0d4gd"]
+resource_name = "credits"
+length = 10.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("labes:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(4, -0.25, 0, 0.25, 0, -2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 10)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("labes:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(416, -0.25, 0, 0.25, 0, -369, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 10)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8a744"]
+_data = {
+&"RESET": SubResource("Animation_e1tq4"),
+&"credits": SubResource("Animation_0d4gd")
+}
+
+[node name="credits" type="Node2D"]
+script = ExtResource("1_lwxu6")
+
+[node name="backround" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="backround"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r2c6a")
+offset_left = -585.0
+offset_top = -316.0
+offset_right = -385.0
+offset_bottom = -116.0
+scale = Vector2(3.15239, 2.22398)
+texture = ExtResource("3_x7g6q")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect2" type="TextureRect" parent="backround"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r2c6a")
+offset_left = 43.0
+offset_top = -316.0
+offset_right = 243.0
+offset_bottom = -116.0
+scale = Vector2(3.15239, 2.22398)
+texture = ExtResource("3_x7g6q")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="backround"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r2c6a")
+offset_left = -585.0
+offset_top = 129.0
+offset_right = -385.0
+offset_bottom = 329.0
+scale = Vector2(3.15239, 2.22398)
+texture = ExtResource("3_x7g6q")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect4" type="TextureRect" parent="backround"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r2c6a")
+offset_left = 43.0
+offset_top = 129.0
+offset_right = 243.0
+offset_bottom = 329.0
+scale = Vector2(3.15239, 2.22398)
+texture = ExtResource("3_x7g6q")
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(13, 338)
+zoom = Vector2(3, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8a744")
+}
+autoplay = "credits"
+
+[node name="labes" type="Node2D" parent="."]
+position = Vector2(4, 416)
+
+[node name="thanks for playing" type="Label" parent="labes"]
+offset_left = -99.0
+offset_top = -29.0
+offset_right = 94.0
+offset_bottom = 20.0
+text = "thanks for playing level 1
+"
+
+[node name="credits" type="Label" parent="labes"]
+offset_left = -41.0
+offset_top = -1.0
+offset_right = 75.0
+offset_bottom = 360.0
+text = "     code
+     arran
+
+
+      art
+     arran
+	      leon
+
+
+  level disne
+       arran
+
+    play testers
+	        	gorge
+		        arran
+		        lucase
+		          leon
+	         harry
+
+
+spechle thanks
+       arran"
+
+[node name="end timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="timeout" from="end timer" to="." method="_on_end_timer_timeout"]

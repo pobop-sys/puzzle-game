@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dououokx1n8qx"]
+
+[ext_resource type="Script" uid="uid://cjdrs6d6n7a71" path="res://code/plant.gd" id="1_ci43t"]
+[ext_resource type="Texture2D" uid="uid://c5mhpluqt1al7" path="res://art/pixilart-sprite (2).png" id="1_u7ete"]
+
+[sub_resource type="Gradient" id="Gradient_ci43t"]
+offsets = PackedFloat32Array(0.26, 0.72)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8t3y5"]
+gradient = SubResource("Gradient_ci43t")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="plant" type="Node2D"]
+script = ExtResource("1_ci43t")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -23)
+scale = Vector2(3, 2)
+texture = SubResource("GradientTexture2D_8t3y5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture_filter = 1
+position = Vector2(0, -12)
+scale = Vector2(2, 2)
+texture = ExtResource("1_u7ete")
+region_enabled = true
+region_rect = Rect2(96.0691, 0, 15.9309, 24)

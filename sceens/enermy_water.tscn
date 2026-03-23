@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://b52pnpgp7yu41"]
+
+[ext_resource type="Script" uid="uid://7nxrxketpkdf" path="res://code/enermy_water.gd" id="1_05qef"]
+[ext_resource type="Texture2D" uid="uid://df0c7jxpph5uw" path="res://resorses/new_canvas_texture.tres" id="2_05qef"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqmnm"]
+radius = 2.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_05qef"]
+radius = 4.0
+height = 26.0
+
+[node name="enermy water" type="CharacterBody2D"]
+script = ExtResource("1_05qef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_aqmnm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-3, 0)
+texture = ExtResource("2_05qef")
+region_enabled = true
+region_rect = Rect2(65.4553, 11.4679, 27.3865, 30.6191)
+
+[node name="raycast" type="Node2D" parent="."]
+position = Vector2(0, 11)
+
+[node name="raycaset_right" type="RayCast2D" parent="raycast"]
+target_position = Vector2(-15, 0)
+collision_mask = 5
+
+[node name="raycast_left" type="RayCast2D" parent="raycast"]
+target_position = Vector2(15, 0)
+collision_mask = 5
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_05qef")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm5nisfl61dwh"]
+
+[ext_resource type="Texture2D" uid="uid://cr2q7ua4hnrjt" path="res://icon.svg" id="1_wumuw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3ugn"]
+size = Vector2(30, 61)
+
+[node name="puzzle box" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+input_pickable = true
+mass = 0.01
+gravity_scale = 0.25
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_wumuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14.5)
+shape = SubResource("RectangleShape2D_i3ugn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -29)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_i3ugn")
